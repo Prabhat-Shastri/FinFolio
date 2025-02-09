@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plaid Link With Database</title>
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+</head>
+<body>
+  <h1>Login to Connect Your Bank</h1>
+
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required value="user_good"><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" required value="pass_good"><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <button id="connectBankButton" style="display: none;">Connect a Bank</button>
+  <button id="fetchTransactionsButton" style="display: none;">Fetch Transactions</button>
+
+  <h2>Response</h2>
+  <div id="result"></div>
+
+  <script>
+    let username = null;
+
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      
+      username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      
+      const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        document.getElementById("connectBankButton").style.display = "block";
+        document.getElementById("fetchTransactionsButton").style.display = "block";
+        document.getElementById("result").innerHTML = "<p>Login Successful! Click 'Connect a Bank'.</p>";
+      } else {
+        document.getElementById("result").innerHTML = "<p>Login failed. Check username/password.</p>";
+      }
+    });
+
+    document.getElementById("connectBankButton").addEventListener("click", async function() {
+      try {
+        const response = await fetch("http://localhost:8000/create_link_token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await response.json();
+        const linkToken = data.link_token;
+
+        const handler = Plaid.create({
+          token: linkToken,
+          onSuccess: async function(public_token, metadata) {
+            console.log("Public Token:", public_token);
+
+            const exchangeResponse = await fetch("http://localhost:8000/exchange_public_token", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, public_token })
+            });
+
+            const exchangeData = await exchangeResponse.json();
+            document.getElementById("result").innerHTML += "<pre>" + JSON.stringify(exchangeData, null, 2) + "</pre>";
+          },
+          onExit: function(err, metadata) {
+            console.log("User exited:", err, metadata);
+          }
+        });
+
+        handler.open();
+      } catch (error) {
+        console.error("Error initializing Plaid:", error);
+      }
+    });
+
+    document.getElementById("fetchTransactionsButton").addEventListener("click", async function() {
+      if (!username) {
+        document.getElementById("result").innerHTML = "<p>Please log in first.</p>";
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8000/transactions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username })
+        });
+
+        const data = await response.json();
+        document.getElementById("result").innerHTML += "<h3>Transactions:</h3><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    });
+  </script>
+</body>
+</html>

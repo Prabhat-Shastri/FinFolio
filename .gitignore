@@ -1,0 +1,77 @@
+# ---- Python ----
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+coverage.xml
+
+# MyPy
+.mypy_cache/
+
+# Pyre
+.pyre/
+
+# ---- Environments ----
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# If you named your virtual environment something custom, add that here:
+# custom_venv_name/
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+
+# ---- OS-specific ----
+.DS_Store
+Thumbs.db
+
+# ---- Other Ignored Files ----
+# Put additional files you want to ignore below
+.env
+node_modules/
+package-lock.json
