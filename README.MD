@@ -59,12 +59,8 @@ Refer to the `schemas/` directory for SQL schema definitions for tables such as 
 ## Setup & Running Locally
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/aimankoli/hackrusp25.git
-   cd hackrusp25
+   git clone https://github.com/Prabhat-Shastri/FinFolio.git
+   cd FionFolio
 
-Workflow:
-1. Call add transaction
-2. Call alert
-3. Call get alert
-4. Call resolve alert
+
 
