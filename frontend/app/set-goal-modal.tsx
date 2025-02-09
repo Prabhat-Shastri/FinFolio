@@ -5,11 +5,17 @@ import { useRouter } from "expo-router";
 export default function SetGoalModal(): JSX.Element {
   const username = "user_good"; // ✅ Hardcoded username
   const [newGoal, setNewGoal] = useState<string>("");
+  const [timeFrame, setTimeFrame] = useState<string>("6"); // New state for time frame
   const router = useRouter();
 
   const updateSavingGoal = async (): Promise<void> => {
     if (!newGoal || isNaN(Number(newGoal)) || Number(newGoal) <= 0) {
       Alert.alert("Invalid Input", "Please enter a valid amount.");
+      return;
+    }
+
+    if (!timeFrame || isNaN(Number(timeFrame)) || Number(timeFrame) <= 0) {
+      Alert.alert("Invalid Input", "Please enter a valid time frame.");
       return;
     }
 
@@ -22,7 +28,7 @@ export default function SetGoalModal(): JSX.Element {
         body: JSON.stringify({
           username: username, // ✅ Send hardcoded username
           amount: Number(newGoal), // ✅ Store as user.amount
-          time_months: 6, // Keep duration static for now
+          time_months: Number(timeFrame), // Use dynamic time frame
         }),
       });
 
@@ -40,7 +46,7 @@ export default function SetGoalModal(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Set New Saving Goal</Text>
+      <Text style={styles.title}>New Saving Goal</Text>
 
       {/* Input field to enter new goal */}
       <TextInput
@@ -51,6 +57,18 @@ export default function SetGoalModal(): JSX.Element {
         value={newGoal}
         onChangeText={setNewGoal}
       />
+
+      <Text style={styles.title}>Time Frame in Months</Text>
+      {/* Input field to enter time frame */}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter time frame in months"
+        placeholderTextColor="#888"
+        keyboardType="numeric"
+        value={timeFrame}
+        onChangeText={setTimeFrame}
+      />
+
       <Button title="Submit" onPress={updateSavingGoal} />
       <Button title="Cancel" onPress={() => router.back()} color="red" />
     </View>

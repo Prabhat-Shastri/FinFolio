@@ -45,6 +45,14 @@ export default function GoalsScreen(): JSX.Element {
     }, [])
   );
 
+  // Update the navigation to pass both goalAmount and timeToAchieve
+  const handleSetNewGoal = () => {
+    router.push({
+      pathname: "/set-goal-modal",
+      params: { goalAmount, timeToAchieve }
+    });
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" color="#fff" style={styles.loader} />;
   }

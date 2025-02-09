@@ -211,11 +211,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     padding: 10,
+    backgroundColor: "#121212", // Dark mode background
   },
   addButton: {
     fontSize: 24,
     color: "#00adf5",
     fontWeight: "bold",
+    
   },
   input: {
     width: "100%",

@@ -295,7 +295,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: "#121212", // Dark mode background
     paddingTop: 0 ,
   },
   scrollViewContent: {

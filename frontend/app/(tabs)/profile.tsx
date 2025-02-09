@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: "center", 
     alignItems: "center", 
-    backgroundColor: "#1e1e1e", 
+    backgroundColor: "#121212", // Dark mode background
     paddingHorizontal: 20 
   },
   profileInfo: {

@@ -29,7 +29,7 @@ const RegisterScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>Sign In</Text>
       
       <TextInput
         style={[styles.input, { color: '#fff' }]}
@@ -51,13 +51,13 @@ const RegisterScreen: React.FC = () => {
 
       <View style={styles.buttonContainer}>
         <Button 
-          title="Register" 
+          title="Sign In" 
           onPress={handleRegister}
           disabled={isLoading}
         />
         
         <Button 
-          title="Back to Sign In" 
+          title="Back to Register" 
           onPress={() => router.back()}
           disabled={isLoading}
         />

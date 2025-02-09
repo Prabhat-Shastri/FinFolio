@@ -36,18 +36,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#000', // Set the SafeAreaView background to black
+    backgroundColor: "#121212", // Dark mode background
   },
   tooltipContainer: {
     position: 'absolute',
     top: 0,
     left: 20,
     zIndex: 1000,
+    paddingBottom: 0,
   },
   scrollViewContent: {
     paddingBottom: 20,
     alignItems: 'center',
-    backgroundColor: '#000', // Set the ScrollView background to black
     flexGrow: 1, // Ensures the scroll content expands properly
   },
 });

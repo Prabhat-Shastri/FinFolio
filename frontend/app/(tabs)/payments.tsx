@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 50,
-    backgroundColor: '#333',
+    backgroundColor: "#121212", // Dark mode background
     padding: 20,
   },
   header: {
